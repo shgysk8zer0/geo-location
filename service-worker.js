@@ -41,12 +41,12 @@ self.addEventListener('install', async () => {
 	await Promise.all(old.map(key => caches.delete(key)));
 
 	await cache.addAll(config.stale);
-	skipWaiting();
+	self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
 	event.waitUntil(async function() {
-		clients.claim();
+		self.clients.claim();
 	}());
 });
 
