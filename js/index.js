@@ -1,10 +1,13 @@
 import 'https://cdn.kernvalley.us/js/std-js/deprefixer.js';
 import 'https://cdn.kernvalley.us/js/std-js/shims.js';
 import 'https://cdn.kernvalley.us/js/std-js/asyncDialog.js';
-import {ready, $} from 'https://cdn.kernvalley.us/js/std-js/functions.js';
+import {ready, $, registerServiceWorker} from 'https://cdn.kernvalley.us/js/std-js/functions.js';
 
 document.documentElement.classList.toggle('no-dialog', document.createElement('dialog') instanceof HTMLUnknownElement);
 
+if (document.documentElement.dataset.hasOwnProperty('serviceWorker')) {
+	registerServiceWorker(document.documentElement.dataset.serviceWorker);
+}
 ready().then(async () => {
 	async function getCoords({
 		enableHighAccuracy = true,
