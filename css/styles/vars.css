@@ -38,4 +38,9 @@
 	--header-height: 30vh;
 	--footer-height: auto;
 	--main-width: 1400px;
+
+	--bg-full: url("https://i.imgur.com/bjuMYYg.jpg") /*6591 x 4540 */;
+	--bg-h: url("https://i.imgur.com/bjuMYYgh.jpg"); /* 1024 x 705 */
+	--bg-h: url("https://i.imgur.com/bjuMYYgl.jpg"); /* 640 x 441 */
+	--bg-m: url("https://i.imgur.com/bjuMYYgm.jpg"); /* 320 x 220 */
 }
