@@ -1,10 +1,10 @@
 {
-  "name": "tempalte-basic",
-  "short_name": "template-basic",
+  "name": "geo-location",
+  "short_name": "geo-location",
   "version": "1.0.0",
   "start_url": "/",
   "lang": "en",
-  "description": "",
+  "description": "A GeoLocation API Demo",
   "icons": [{
     "src": "/img/favicon.svg",
     "sizes": "any",
