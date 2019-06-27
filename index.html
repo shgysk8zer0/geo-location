@@ -5,10 +5,10 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="robots" content="follow,index" />
-		<meta name="description" content="A fairly bare-bones template repository" />
-		<meta itemprop="description" content="A fairly bare-bones template repository" />
-		<meta name="keywords" content="" />
-		<meta itemprop="keywords" content="" />
+		<meta name="description" content="A GeoLocation API Demo" />
+		<meta itemprop="description" content="A GeoLocation API Demo" />
+		<meta name="keywords" content="geolocation, javascript" />
+		<meta itemprop="keywords" content="geolocation, javascript" />
 		<meta name="referrer" content="origin-when-cross-origin"/>
 		<meta name="mobile-web-app-capable" content="yes" />
 		<meta itemprop="thumbnailUrl" content="" />
@@ -17,8 +17,8 @@
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="" />
 		<meta property="og:url" content="" />
-		<meta property="og:description" content="A fairly bare-bones template repository" />
-		<meta property="og:keywords" content="" />
+		<meta property="og:description" content="A GeoLocation API Demo" />
+		<meta property="og:keywords" content="geolocation, javascript" />
 		<meta property="og:image" content="" />
 		<meta property="og:image:height" content="" />
 		<meta property="og:image:width" content="" />
@@ -26,14 +26,14 @@
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:creator" content="@shgysk8zer0" />
-		<meta name="twitter:description" content="A fairly bare-bones template repository" />
+		<meta name="twitter:description" content="A GeoLocation API Demo" />
 		<meta name="twitter:image" content="" />
 		<!-- /Twitter -->
 		<!-- /Social data -->
 		<meta name="msapplication-TileColor" content="#528ff9" />
 		<meta name="msapplication-config" content="/browserconfig.xml" />
 		<meta name="theme-color" content="#528ff9" />
-		<title itemprop="headline"></title>
+		<title itemprop="headline">GeoLocation Demo</title>
 		<script type="module" src="/js/index.js" async=""></script>
 		<link rel="manifest" href="/manifest.json" />
 		<link rel="license" href="/LICENSE" />
@@ -48,8 +48,28 @@
 	</head>
 	<body id="top" class="grid font-main background-primary color-default">
 		<header id="header"></header>
-		<nav id="nav" class="sticky top shadow background-accent color-alt z-3"></nav>
-		<main></main>
+		<nav id="nav" class="sticky top shadow background-accent color-alt z-3">
+			<svg class="current-color icon">
+				<use xlink:href="/img/icons.svg#icon-mono" />
+			</svg>
+		</nav>
+		<main>
+			<table id="table" border="1" class="overflow-auto" hidden="">
+			<thead class="sticky top">
+				<tr>
+					<th class="center">Longitude</th>
+					<th class="center">Latitude</th>
+					<th class="center">Altitude</th>
+					<th class="center">Heading</th>
+					<th class="center">Speed</th>
+					<th class="center">Accuracy</th>
+					<th class="center">Date / Time</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+		<code class="error"></code>
+		</main>
 		<aside id="sidebar"></aside>
 		<footer id="footer" class="background-contrast color-alt">
 			<div class="social-links cols-2">
@@ -60,13 +80,13 @@
 						</svg>
 						<span>GitHub Profile</span>
 					</a>
-					<a class="block" href="https://github.com/shgysk8zer0/static-template" target="_blank" rel="external noopener">
+					<a class="block" href="https://github.com/shgysk8zer0/geo-location" target="_blank" rel="external noopener">
 						<svg class="current-color icon social-icon">
 							<use xlink:href="/img/icons.svg#repo" />
 						</svg>
 						<span>GitHub Repo</span>
 					</a>
-					<a class="block" href="https://github.com/shgysk8zer0/static-template/issues" target="_blank" rel="external noopener">
+					<a class="block" href="https://github.com/shgysk8zer0/geo-location/issues" target="_blank" rel="external noopener">
 						<svg class="current-color icon social-icon">
 							<use xlink:href="/img/icons.svg#issue-opened" />
 						</svg>
@@ -96,7 +116,7 @@
 			</div>
 			<hr />
 			<div class="copyright">
-				<span>&copy;</span>
+				<span>©</span>
 				<time itemprop="copyrightYear" is="current-year">2019</time>
 				<span itemprop="copyrightHolder" itemtype="https://schema.org/Person" itemscope="">
 					<a href="https://shgysk8zer0.github.io" target="_blank" rel="external noopener" itemprop="url">
@@ -106,10 +126,27 @@
 				</span>
 			</div>
 		</footer>
-		<button type="button" is="share-button" class="round shadow fixed z-4" aria-label="Share">
+		<button type="button" id="button" class="btn btn-primary fixed round shadow z-4">
 			<svg class="current-color icon">
-				<use xlink:href="/img/icons.svg#public-share"></use>
+				<use xlink:href="/img/icons.svg#find-location" />
 			</svg>
 		</button>
+		<dialog id="progress-dialog" class="card animation-speed-normal animation-ease-in-out fadeInUp">
+			<h2 class="center">Please wait while location data is collected.</h2>
+			<progress id="progress" min="0" max="10"></progress>
+		</dialog>
+		<template id="row-template">
+			<tr>
+				<td data-field="longitude"></td>
+				<td data-field="latitude"></td>
+				<td data-field="altitude"></td>
+				<td data-field="heading"></td>
+				<td data-field="speed"></td>
+				<td data-field="accuracy"></td>
+				<td>
+					<time datetime="" data-field="dtime"></time>
+				</td>
+			</tr>
+		</template>
 	</body>
 </html>

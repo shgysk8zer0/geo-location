@@ -1,8 +1,8 @@
 {
-  "name": "template-basic",
+  "name": "geo-location",
   "version": "1.0.0",
   "private": true,
-  "description": "A fairly bare-bones template repository",
+  "description": "A Demo of the GeoLocation API",
   "config": {
     "serve": {
       "domain": "localhost",
@@ -18,23 +18,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shgysk8zer0/template-basic.git"
+    "url": "git+https://github.com/shgysk8zer0/geo-location.git"
   },
   "keywords": [
-    "static",
-    "template",
-    "ecmascript",
-    "javascript",
-    "css",
-    "svg",
-    "icons"
+    "geolocation",
+    "javascript"
   ],
   "author": "Chris Zuber <shgysk8zer0@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shgysk8zer0/template-basic/issues"
+    "url": "https://github.com/shgysk8zer0/geo-location/issues"
   },
-  "homepage": "https://github.com/shgysk8zer0/template-basic",
+  "homepage": "https://github.com/shgysk8zer0/geo-location",
   "scripts": {
     "preinstall": "git submodule update --recursive --init",
     "start": "http-server ${npm_package_config_serve_path} -p ${npm_package_config_serve_port} -a ${npm_package_config_serve_domain} -o",

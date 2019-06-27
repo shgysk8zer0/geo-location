@@ -1,8 +1,6 @@
-@charset "UTF-8";
 @import url("./vars.css");
-@import url("https://cdn.kernvalley.us/css/normalize.css/normalize.css");
-@import url("https://cdn.kernvalley.us/css/core-css/rem.css");
 @import url("https://cdn.kernvalley.us/css/core-css/viewport.css");
+@import url("https://cdn.kernvalley.us/css/core-css/rem.css");
 @import url("https://cdn.kernvalley.us/css/core-css/element.css");
 @import url("https://cdn.kernvalley.us/css/core-css/class-rules.css");
 @import url("https://cdn.kernvalley.us/css/core-css/fonts.css");
@@ -10,20 +8,57 @@
 @import url("https://cdn.kernvalley.us/css/core-css/animations.css");
 @import url("./layout.css");
 
-input[hidden] + label[for].btn-toggle {
-	background-color: var(--button-disabled-background);
-	margin: 0.3rem;
-	transition: background-color 300ms ease-in-out;
+.overflow-auto {
+	overflow: auto;
 }
 
-input[hidden]:checked + label[for].btn-toggle {
-	background-color: var(--button-background);
+.error:empty {
+	display: none !important;
 }
 
-input[hidden]:not(:checked) + label[for].btn-toggle .when-checked {
-	display: none;
+.error:not(:empty) {
+	color: #d1481b;
+	border: 1px solid #242424;
+	padding: 0.3rem;
+	background-color: #fefefe !important;
+	margin-top: 2rem;
+	font-family: monospace;
+	display: block;
 }
 
-input[hidden]:checked + label[for].btn-toggle .when-unchecked {
-	display: none;
+#table > thead {
+	background-color: #424242;
+	color: var(--alt-color);
+}
+
+#table td, #table th {
+	padding: 0.2rem 0.8rem;
+}
+
+#table > tbody > tr:nth-child(odd) {
+	background-color: #7c7c7c;
+	color: var(--alt-color);
+}
+
+#button {
+	border-radius: 50%;
+	right: 0.4rem;
+	bottom: 0.4rem;
+	font-size: 0.8rem;
+	padding: 0.6rem;
+}
+
+main {
+	max-width: var(--main-width);
+	padding: 2rem;
+}
+
+.btn-primary:disabled {
+	color: var(--button-disabled-color);
+}
+
+@media (min-width: 1400px) {
+	main {
+		margin-left: calc(50vw - calc(var(--main-width) / 2));
+	}
 }
