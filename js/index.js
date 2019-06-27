@@ -40,7 +40,7 @@ ready().then(async () => {
 
 				if (++value > max) {
 					navigator.geolocation.clearWatch(pid);
-					resolve(entries)
+					resolve(entries);
 				}
 			}, err => reject(err), {enableHighAccuracy, timeout, maximumAge});
 		});
