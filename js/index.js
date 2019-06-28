@@ -75,7 +75,7 @@ ready().then(async () => {
 			}) => {
 				const template = tmp.cloneNode(true);
 				const m2ft = m => m / 3.28084;
-				const mps2mph = v => v / 2.236936;
+				const mps2mph = v => v * 2.236936;
 
 				$('[data-field="longitude"]', template).text(longitude);
 				$('[data-field="latitude"]', template).text(latitude);
