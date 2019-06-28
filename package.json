@@ -1,6 +1,6 @@
 {
   "name": "geo-location",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "A Demo of the GeoLocation API",
   "config": {
@@ -43,6 +43,7 @@
     "fix:js": "eslint ${npm_package_config_dir_js} --fix"
   },
   "dependencies": {
+    "http-server": "^0.11.1",
     "svg-sprite-generator": "0.0.7"
   },
   "devDependencies": {
