@@ -106,6 +106,10 @@ ready().then(async () => {
 
 			tbody.append(...rows);
 			$('#table').unhide();
+			$('#table').scrollIntoView({
+				block: 'start',
+				behavior: 'smooth',
+			});
 		} catch(err) {
 			console.error(err);
 			$('.error').text(err.message);
