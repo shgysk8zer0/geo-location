@@ -1,6 +1,6 @@
 {
-  "name": "geo-location",
-  "short_name": "geo-location",
+  "name": "GeoLocation Demo",
+  "short_name": "GeoLocation",
   "version": "1.0.0",
   "start_url": "/",
   "lang": "en",
