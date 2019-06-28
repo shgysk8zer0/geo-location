@@ -105,8 +105,8 @@ ready().then(async () => {
 			});
 
 			tbody.append(...rows);
-			$('#table').unhide();
-			$('#table').scrollIntoView({
+			table.hidden = false;
+			table.scrollIntoView({
 				block: 'start',
 				behavior: 'smooth',
 			});
