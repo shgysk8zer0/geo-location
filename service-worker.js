@@ -1,10 +1,12 @@
 'use strict';
 // 2019-06-11 12:25
 const config = {
-	version: location.hostname === 'localhost' ? new Date().toISOString() : '1.0.0-b',
+	version: '1.0.01',
 	stale: [
 		'/',
 		'/js/index.js',
+		'/js/current-location.js',
+		'/current-location.html',
 		'/img/icons.svg',
 		'https://cdn.kernvalley.us/js/std-js/deprefixer.js',
 		'https://cdn.kernvalley.us/js/std-js/shims.js',
