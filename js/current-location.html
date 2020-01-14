@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8" />
+		<style>
+			:host {
+				display: block;
+			}
+
+			button, a[role="button"] {
+				cursor: pointer;
+				margin-left: 0.4em;
+				font-size: 1.1rem;
+				background-color: #1b5fcb;
+				padding: 0.4em;
+				color: #fefefe;
+				border: none;
+				border-radius: 6px;
+			}
+
+			button:disabled, a[role="button"].no-pointer-events {
+				cursor: not-allowed;
+				background-color: #787878;
+				color: #4e4e4e;
+			}
+
+			.float-left {
+				float: left;
+			}
+
+			.center {
+				text-align: center;
+			}
+
+			.block {
+				display: block
+			}
+
+			.inline-block {
+				display: inline-block;
+			}
+
+			.no-pointer-events {
+				pointer-events: none;
+			}
+
+			.cell {
+				padding: 0.3em;
+				margin: 0.2em;
+				border: 1px solid currentColor;
+				border-radius: 2px;
+			}
+
+			.clearfix::after {
+				display: block;
+				content: "";
+				clear: both;
+			}
+
+			.current-color {
+				fill: currentColor;
+			}
+
+			.icon {
+				width: 1em;
+				height: 1em;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="clearfix">
+			<span class="cell inline-block float-left">
+				<b class="block center">Latitude</b>
+				<br />
+				<slot name="latitude"></slot>
+			</span>
+			<span class="cell inline-block float-left">
+				<b class="block center">Longitude</b>
+				<br />
+				<slot name="longitude"></slot>
+			</span>
+			<span class="cell inline-block float-left">
+				<b class="block center">Altitude</b>
+				<br />
+				<slot name="altitude"></slot>
+				<slot name="alt-units"><abbr title="Meters">m</abbr></slot>
+			</span>
+			<span class="cell inline-block float-left">
+				<b class="block center">Heading</b>
+				<br />
+				<slot name="heading"></slot>
+				<sup>&deg;</sup>
+			</span>
+			<span class="cell inline-block float-left">
+				<b class="block center">Speed</b>
+				<br />
+				<slot name="speed"></slot>
+				<slot name="speed-units"><abbr title="Meters per Second">mps</abbr></slot>
+			</span>
+			<span class="cell inline-block float-left">
+				<b class="block center">Accuracy</b>
+				<br />
+				<slot name="accuracy"></slot>
+				<slot name="accuracy-units"><abbr title="Meters">m</abbr></slot>
+			</span>
+		</div>
+		<button type="button" id="start">
+			<svg class="current-color icon" viewBox="0 0 15.974 16">
+				<path d="M7 0v1.031A6.514 6.514 0 0 0 1.062 7H0v1h1.063A6.514 6.514 0 0 0 7 13.969V15h1v-1.031c3.188-.234 5.724-2.78 5.969-5.969H15V7h-1.031C13.724 3.811 11.189 1.233 8 1V0zm.531 2.813c2.607 0 4.688 2.08 4.688 4.687s-2.081 4.688-4.688 4.688c-2.606 0-4.75-2.082-4.75-4.688s2.144-4.688 4.75-4.688zM7.5 4a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
+			</svg>
+			<span>Start</span>
+		</button>
+		<button type="button" id="stop" disabled="">
+			<svg class="current-color icon" viewBox="0 0 16 16">
+				<path d="M6 2L0 8l6 6h9.035A1.03 1.03 0 0 0 16 13V3c0-.53-.346-1-1.009-1zm1 3h1.031c.255.011.51.129.688.313L10 6.593l1.313-1.28c.265-.231.446-.306.687-.313h1v1c0 .286-.034.55-.25.75l-1.281 1.281 1.25 1.25c.188.188.281.454.281.719v1h-1c-.265 0-.53-.093-.719-.281l-1.28-1.281-1.282 1.28A1.015 1.015 0 0 1 8 11H7v-1c0-.265.093-.53.281-.719l1.282-1.25L7.28 6.75A.909.909 0 0 1 7 6z"/>
+			</svg>
+			<span>Stop</span>
+		</button>
+		<a role="button" class="no-pointer-events inline-block" id="download" title="Save Recorded Path">
+			<svg class="current-color icon" viewBox="0 0 16 16">
+				<path d="M4.406 9a.5.5 0 0 0-.312.219l-1 1.5a.5.5 0 1 0 .812.562l1-1.5a.5.5 0 0 0-.5-.781zm7 0a.5.5 0 0 0-.312.781l1 1.5a.5.5 0 1 0 .812-.562l-1-1.5a.5.5 0 0 0-.5-.219zM7 1v5.563L5.719 5.28A1.015 1.015 0 0 0 5 5.001L4 5v1c0 .265.093.53.281.719l3 3 .282.281h.875l.28-.281 3-3A1.01 1.01 0 0 0 12 6V5h-1c-.265 0-.53.093-.719.281l-1.28 1.282V1z"/>
+				<path fill-rule="evenodd" d="M3 11v4h10v-4zm3.344 1.438a.651.651 0 0 1 .062 0c.291-.056.6.203.594.5V13h2v-.063c-.004-.264.236-.507.5-.507s.504.243.5.507V13c0 .545-.455 1-1 1H7c-.545 0-1-.455-1-1v-.063a.515.515 0 0 1 .344-.5z"/>
+			</svg>
+			<span>Save</span>
+		</a>
+	</body>
+</html>

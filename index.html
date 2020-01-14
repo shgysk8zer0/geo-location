@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="no-js border-box smooth-scroll" data-service-worker="service-worker.js" itemtype="https://schema.org/WebPage" prefix="og: http://ogp.me/ns#"  itemscope="">
+<html lang="en" dir="ltr" class="no-js border-box smooth-scroll" itemtype="https://schema.org/WebPage" data-service-worker="./service-worker.js" prefix="og: http://ogp.me/ns#" itemscope="">
 	<head>
 		<base href="/" />
 		<meta charset="utf-8" />
@@ -54,21 +54,22 @@
 			</svg>
 		</nav>
 		<main class="overflow-auto">
-			<table id="table" border="1" class="overflow-auto" hidden="">
-				<thead class="sticky top">
-					<tr>
-						<th class="center">Longitude</th>
-						<th class="center">Latitude</th>
-						<th class="center">Altitude</th>
-						<th class="center">Heading</th>
-						<th class="center">Speed</th>
-						<th class="center">Accuracy</th>
-						<th class="center">Date / Time</th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-			<code class="error"></code>
+			<current-location></current-location>
+			<!-- <table id="table" border="1" class="overflow-auto" hidden=""> -->
+			<!-- 	<thead class="sticky top"> -->
+			<!-- 		<tr> -->
+			<!-- 			<th class="center">Longitude</th> -->
+			<!-- 			<th class="center">Latitude</th> -->
+			<!-- 			<th class="center">Altitude</th> -->
+			<!-- 			<th class="center">Heading</th> -->
+			<!-- 			<th class="center">Speed</th> -->
+			<!-- 			<th class="center">Accuracy</th> -->
+			<!-- 			<th class="center">Date / Time</th> -->
+			<!-- 		</tr> -->
+			<!-- 	</thead> -->
+			<!-- 	<tbody></tbody> -->
+			<!-- </table> -->
+			<!-- <code class="error"></code> -->
 		</main>
 		<aside id="sidebar"></aside>
 		<footer id="footer" class="background-contrast color-alt">
@@ -126,27 +127,5 @@
 				</span>
 			</div>
 		</footer>
-		<button type="button" id="button" class="btn btn-primary fixed round shadow z-4">
-			<svg class="current-color icon">
-				<use xlink:href="/img/icons.svg#find-location" />
-			</svg>
-		</button>
-		<dialog id="progress-dialog" class="card animation-speed-normal animation-ease-in-out fadeInUp">
-			<h2 class="center">Please wait while location data is collected.</h2>
-			<progress id="progress" min="0" max="10"></progress>
-		</dialog>
-		<template id="row-template">
-			<tr>
-				<td data-field="longitude"></td>
-				<td data-field="latitude"></td>
-				<td data-field="altitude"></td>
-				<td data-field="heading"></td>
-				<td data-field="speed"></td>
-				<td data-field="accuracy"></td>
-				<td>
-					<time datetime="" data-field="dtime"></time>
-				</td>
-			</tr>
-		</template>
 	</body>
 </html>

@@ -32,7 +32,7 @@
   "homepage": "https://github.com/shgysk8zer0/geo-location",
   "scripts": {
     "preinstall": "git submodule update --recursive --init",
-    "start": "http-server ${npm_package_config_serve_path} -p ${npm_package_config_serve_port} -a ${npm_package_config_serve_domain} -o",
+    "start": "netlify dev --live",
     "test": "npm run lint:js && npm run lint:css",
     "fix": "npm run fix:js && npm run fix:css",
     "build": "npm run build:icons",
@@ -43,6 +43,7 @@
     "fix:js": "eslint ${npm_package_config_dir_js} --fix"
   },
   "dependencies": {
+    "netlify": "^3.0.0",
     "svg-sprite-generator": "0.0.7"
   },
   "devDependencies": {
