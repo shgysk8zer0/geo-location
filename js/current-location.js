@@ -32,6 +32,22 @@ function get(element, name) {
 	}
 }
 
+function getGeoJSON(path, generated = new Date()) {
+	const obj = {
+		type: 'FeatureCollection',
+		features: [{
+			type: 'Feature',
+			geometry: {
+				type: 'LineString',
+				coordinates: path.map(({coords}) => ([coords.longitude, coords.latitude])),
+			},
+			properties: {generated: generated.toISOString()},
+		}],
+	};
+
+	return new Blob([JSON.stringify(obj, null, 4)], {type: 'application/geo+json'});
+}
+
 async function clearSlot(element, name) {
 	const slot = await getSlot(element, name);
 	slot.assignedNodes().forEach(el => el.remove());
@@ -182,17 +198,14 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 			const now = new Date();
 			const shadow = shadows.get(this);
 			const path = paths.get(this);
-			const blob = new Blob(
-				[JSON.stringify(paths.get(this), null, 4)],
-				{type: 'application/json'}
-			);
+			const blob = getGeoJSON(path);
 			const download = shadow.getElementById('download');
 
 			if (download.href.startsWith('blob:')) {
 				URL.revokeObjectURL(download.href);
 			}
 			download.href = URL.createObjectURL(blob);
-			download.download = `path-${now.toISOString()}.json`;
+			download.download = `path-${now.toISOString()}.geojson`;
 			download.classList.remove('no-pointer-events');
 			navigator.geolocation.clearWatch(pid);
 			paths.delete(this);
