@@ -3,6 +3,7 @@ import 'https://cdn.kernvalley.us/js/std-js/shims.js';
 import 'https://cdn.kernvalley.us/js/std-js/asyncDialog.js';
 import './current-location.js';
 import {registerServiceWorker} from 'https://cdn.kernvalley.us/js/std-js/functions.js';
+import 'https://cdn.kernvalley.us/components/share-button.js';
 
 document.documentElement.classList.remove('no-js', 'js');
 document.documentElement.classList.toggle('no-dialog', document.createElement('dialog') instanceof HTMLUnknownElement);

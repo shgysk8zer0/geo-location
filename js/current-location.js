@@ -65,6 +65,14 @@ async function sleep(time = 100) {
 	await new Promise(resolve => setTimeout(() => resolve(), time));
 }
 
+async function getLocationData(el) {
+	return {
+		uuid: await getUUID(),
+		latitude: el.latitude,
+		longitude: el.longitude,
+	};
+}
+
 customElements.define('current-location', class HTMLCurrentLocationElement extends HTMLElement {
 	constructor() {
 		super();
@@ -74,12 +82,22 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 			const html = await resp.text();
 			const parser = new DOMParser();
 			const doc = parser.parseFromString(html, 'text/html');
+
+			doc.getElementById('share-btn').addEventListener('click', async () => {
+				try {
+					const data = await getLocationData(this);
+					const json = JSON.stringify(data, null, 4);
+					await navigator.share({title: 'Shared Location Data', text: json, url: `geo:${data.latitude},${data.longitude}`});
+				} catch(err) {
+					console.error(err);
+				}
+			}, {
+				passive: true,
+			});
+
 			doc.getElementById('copy-btn').addEventListener('click', async () => {
 				try {
-					const {latitude, longitude} = this;
-					const uuid = await getUUID();
-					const json = JSON.stringify({uuid, latitude, longitude}, null, 4);
-					console.info({uuid, latitude, longitude, json});
+					const json = JSON.stringify(await getLocationData(this), null, 4);
 					await navigator.clipboard.writeText(json);
 				} catch(err) {
 					console.error(err);
@@ -178,6 +196,7 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 			shadow.getElementById('start').disabled = true;
 			shadow.getElementById('stop').disabled = false;
 			shadow.getElementById('copy-btn').disabled = false;
+			shadow.getElementById('share-btn').disabled = false;
 			paths.set(this, []);
 			await Promise.all(['leaflet-map', 'leaflet-marker'].map(tag => customElements.whenDefined(tag)));
 			const Marker = customElements.get('leaflet-marker');
@@ -262,6 +281,7 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 			shadow.getElementById('stop').disabled = true;
 			shadow.getElementById('start').disabled = false;
 			shadow.getElementById('copy-btn').disabled = true;
+			shadow.getElementById('share-btn').disabled = true;
 			shadow.getElementById('map').clearMarkers();
 		}
 	}
