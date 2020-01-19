@@ -21,10 +21,10 @@
     Content-Security-Policy = '''
       default-src 'self';
       base-uri 'self';
-      img-src 'self' https://secure.gravatar.com/avatar/ https://i.imgur.com/ https://cdn.kernvalley.us;
+      img-src 'self' https://secure.gravatar.com/avatar/ https://i.imgur.com/ https://cdn.kernvalley.us https://maps.wikimedia.org/osm-intl/;
       script-src 'self' https://cdn.kernvalley.us https://unpkg.com/leaflet@1.6.0/;
       style-src 'self' 'unsafe-inline' https://cdn.kernvalley.us https://unpkg.com/leaflet@1.6.0/;
-      connect-src 'self' https://api.kernvalley.us https://cdn.kernvalley.us https://unpkg.com/leaflet@1.6.0/;
+      connect-src 'self' https://api.kernvalley.us https://cdn.kernvalley.us https://unpkg.com/leaflet@1.6.0/ https://maps.wikimedia.org/osm-intl/;
       worker-src: 'self';
       font-src 'self' https://cdn.kernvalley.us;
       media-src 'none';
