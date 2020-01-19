@@ -54,10 +54,11 @@ async function clearSlot(element, name) {
 	slot.assignedNodes().forEach(el => el.remove());
 }
 
-function uuidv4() {
-	return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-		(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-	);
+async function getUUID() {
+	const resp = await fetch('https://api.kernvalley.us/UUID/', {mode: 'cors'});
+	const uuid = await resp.text();
+	console.info(uuid);
+	return uuid.trim();
 }
 
 async function sleep(time = 100) {
@@ -74,9 +75,15 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 			const parser = new DOMParser();
 			const doc = parser.parseFromString(html, 'text/html');
 			doc.getElementById('copy-btn').addEventListener('click', async () => {
-				const {latitude, longitude} = this;
-				const uuid = uuidv4();
-				await navigator.clipboard.writeText(JSON.stringify({uuid, latitude, longitude}, null, 4));
+				try {
+					const {latitude, longitude} = this;
+					const uuid = await getUUID();
+					const json = JSON.stringify({uuid, latitude, longitude}, null, 4);
+					console.info({uuid, latitude, longitude, json});
+					await navigator.clipboard.writeText(json);
+				} catch(err) {
+					console.error(err);
+				}
 			}, {
 				passive: true,
 			})
