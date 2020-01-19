@@ -1,7 +1,7 @@
 'use strict';
 // 2019-06-11 12:25
 const config = {
-	version: '1.0.03',
+	version: '1.0.04',
 	stale: [
 		'/',
 		'/js/index.js',
@@ -14,6 +14,13 @@ const config = {
 		'https://cdn.kernvalley.us/js/std-js/Notification.js',
 		'https://cdn.kernvalley.us/js/std-js/esQuery.js',
 		'https://cdn.kernvalley.us/js/std-js/functions.js',
+		'https://cdn.kernvalley.us/components/leaflet/map.js',
+		'https://cdn.kernvalley.us/components/leaflet/map.html',
+		'https://cdn.kernvalley.us/components/leaflet/marker.js',
+		'https://cdn.kernvalley.us/components/leaflet/geojson.js',
+		'https://cdn.kernvalley.us/components/leaflet/image-overlay.js',
+		'https://unpkg.com/leaflet@1.6.0/dist/leaflet-src.esm.js',
+		'https://unpkg.com/leaflet@1.6.0/dist/leaflet.css',
 		'/css/styles/index.css',
 		'/css/styles/vars.css',
 		'/css/styles/layout.css',
