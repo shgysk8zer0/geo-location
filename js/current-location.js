@@ -1,3 +1,4 @@
+import 'https://cdn.kernvalley.us/components/leaflet/map.js';
 const shadows = new WeakMap();
 const paths = new WeakMap();
 const pids = new WeakMap();
@@ -53,6 +54,16 @@ async function clearSlot(element, name) {
 	slot.assignedNodes().forEach(el => el.remove());
 }
 
+function uuidv4() {
+	return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+		(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+	);
+}
+
+async function sleep(time = 100) {
+	await new Promise(resolve => setTimeout(() => resolve(), time));
+}
+
 customElements.define('current-location', class HTMLCurrentLocationElement extends HTMLElement {
 	constructor() {
 		super();
@@ -62,6 +73,13 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 			const html = await resp.text();
 			const parser = new DOMParser();
 			const doc = parser.parseFromString(html, 'text/html');
+			doc.getElementById('copy-btn').addEventListener('click', async () => {
+				const {latitude, longitude} = this;
+				const uuid = uuidv4();
+				await navigator.clipboard.writeText(JSON.stringify({uuid, latitude, longitude}, null, 4));
+			}, {
+				passive: true,
+			})
 			shadow.append(...doc.head.children, ...doc.body.children);
 			shadows.set(this, shadow);
 			this.dispatchEvent(new Event('ready'));
@@ -152,8 +170,19 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 			shadow.getElementById('download').classList.add('no-pointer-events');
 			shadow.getElementById('start').disabled = true;
 			shadow.getElementById('stop').disabled = false;
+			shadow.getElementById('copy-btn').disabled = false;
 			paths.set(this, []);
-			const pid = navigator.geolocation.watchPosition(({coords, timestamp}) => {
+			await Promise.all(['leaflet-map', 'leaflet-marker'].map(tag => customElements.whenDefined(tag)));
+			const Marker = customElements.get('leaflet-marker');
+			const marker = new Marker();
+			const icon = new Image(32, 32);
+			icon.src = '/img/adwaita-icons/actions/mark-location.svg';
+			icon.slot = 'icon';
+			marker.append(icon);
+			marker.slot = 'markers';
+			marker.title = 'Current Location';
+			const map = shadow.getElementById('map');
+			const pid = navigator.geolocation.watchPosition(async ({coords, timestamp}) => {
 				const {
 					longitude,
 					latitude,
@@ -173,6 +202,13 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 					altitudeAccuracy,
 					speed,
 				}, timestamp: new Date(timestamp).toISOString()});
+				const locMarker = marker.cloneNode(true);
+				locMarker.longitude = longitude;
+				locMarker.latitude = latitude;
+				await map.clearMarkers();
+				map.append(locMarker);
+				map.center = {latitude, longitude};
+				map.zoom = 18;
 
 				this.latitude = latitude;
 				this.longitude = longitude;
@@ -218,6 +254,8 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 			this.accuracy = '';
 			shadow.getElementById('stop').disabled = true;
 			shadow.getElementById('start').disabled = false;
+			shadow.getElementById('copy-btn').disabled = true;
+			shadow.getElementById('map').clearMarkers();
 		}
 	}
 });
