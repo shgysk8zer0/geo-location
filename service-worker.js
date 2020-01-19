@@ -1,12 +1,12 @@
 'use strict';
 // 2019-06-11 12:25
 const config = {
-	version: '1.0.04',
+	version: '1.0.05',
 	stale: [
 		'/',
 		'/js/index.js',
 		'/js/current-location.js',
-		'/current-location.html',
+		'/js/current-location.html',
 		'/img/icons.svg',
 		'https://cdn.kernvalley.us/js/std-js/deprefixer.js',
 		'https://cdn.kernvalley.us/js/std-js/shims.js',
@@ -19,6 +19,11 @@ const config = {
 		'https://cdn.kernvalley.us/components/leaflet/marker.js',
 		'https://cdn.kernvalley.us/components/leaflet/geojson.js',
 		'https://cdn.kernvalley.us/components/leaflet/image-overlay.js',
+		'https://cdn.kernvalley.us/components/share-button.js',
+		'https://cdn.kernvalley.us/components/toast-message.js',
+		'https://cdn.kernvalley.us/components/toast-message.html',
+		'https://cdn.kernvalley.us/js/std-js/webShareApi.js',
+		'https://cdn.kernvalley.us/js/std-js/share-config.js',
 		'https://unpkg.com/leaflet@1.6.0/dist/leaflet-src.esm.js',
 		'https://unpkg.com/leaflet@1.6.0/dist/leaflet.css',
 		'/css/styles/index.css',
