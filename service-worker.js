@@ -1,7 +1,7 @@
 'use strict';
 // 2019-06-11 12:25
 const config = {
-	version: '1.0.05',
+	version: '1.0.06',
 	stale: [
 		'/',
 		'/js/index.js',

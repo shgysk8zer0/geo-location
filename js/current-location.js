@@ -1,4 +1,5 @@
 import 'https://cdn.kernvalley.us/components/leaflet/map.js';
+import 'https://cdn.kernvalley.us/components/leaflet/marker.js';
 const shadows = new WeakMap();
 const paths = new WeakMap();
 const pids = new WeakMap();
@@ -40,13 +41,13 @@ function getGeoJSON(path, generated = new Date()) {
 			type: 'Feature',
 			geometry: {
 				type: 'LineString',
-				coordinates: path.map(({coords}) => ([coords.longitude, coords.latitude])),
+				coordinates: path.map(({ coords }) => ([coords.longitude, coords.latitude])),
 			},
-			properties: {generated: generated.toISOString()},
+			properties: { generated: generated.toISOString() },
 		}],
 	};
 
-	return new Blob([JSON.stringify(obj, null, 4)], {type: 'application/geo+json'});
+	return new Blob([JSON.stringify(obj, null, 4)], { type: 'application/geo+json' });
 }
 
 async function clearSlot(element, name) {
@@ -55,7 +56,7 @@ async function clearSlot(element, name) {
 }
 
 async function getUUID() {
-	const resp = await fetch('https://api.kernvalley.us/UUID/', {mode: 'cors'});
+	const resp = await fetch('https://api.kernvalley.us/UUID/', { mode: 'cors' });
 	const uuid = await resp.text();
 	console.info(uuid);
 	return uuid.trim();
@@ -76,7 +77,7 @@ async function getLocationData(el) {
 customElements.define('current-location', class HTMLCurrentLocationElement extends HTMLElement {
 	constructor() {
 		super();
-		const shadow = this.attachShadow({mode: 'closed'});
+		const shadow = this.attachShadow({ mode: 'closed' });
 
 		fetch(new URL('./current-location.html', import.meta.url)).then(async resp => {
 			const html = await resp.text();
@@ -87,24 +88,24 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 				try {
 					const data = await getLocationData(this);
 					const json = JSON.stringify(data, null, 4);
-					await navigator.share({title: 'Shared Location Data', text: json, url: `geo:${data.latitude},${data.longitude}`});
-				} catch(err) {
+					await navigator.share({ title: 'Shared Location Data', text: json, url: `geo:${data.latitude},${data.longitude}` });
+				} catch (err) {
 					console.error(err);
 				}
 			}, {
-				passive: true,
-			});
+					passive: true,
+				});
 
 			doc.getElementById('copy-btn').addEventListener('click', async () => {
 				try {
 					const json = JSON.stringify(await getLocationData(this), null, 4);
 					await navigator.clipboard.writeText(json);
-				} catch(err) {
+				} catch (err) {
 					console.error(err);
 				}
 			}, {
-				passive: true,
-			})
+					passive: true,
+				})
 			shadow.append(...doc.head.children, ...doc.body.children);
 			shadows.set(this, shadow);
 			this.dispatchEvent(new Event('ready'));
@@ -119,8 +120,8 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 	}
 
 	toJSON() {
-		const {latitude, longitude, altitude, heading, speed, accuracy} = this;
-		return {latitude, longitude, altitude, heading, speed, accuracy};
+		const { latitude, longitude, altitude, heading, speed, accuracy } = this;
+		return { latitude, longitude, altitude, heading, speed, accuracy };
 	}
 
 	toString() {
@@ -132,7 +133,7 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 			if (shadows.has(this)) {
 				resolve();
 			} else {
-				this.addEventListener('ready', () => resolve(), {once: true});
+				this.addEventListener('ready', () => resolve(), { once: true });
 			}
 		});
 	}
@@ -208,7 +209,7 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 			marker.slot = 'markers';
 			marker.title = 'Current Location';
 			const map = shadow.getElementById('map');
-			const pid = navigator.geolocation.watchPosition(async ({coords, timestamp}) => {
+			const pid = navigator.geolocation.watchPosition(async ({ coords, timestamp }) => {
 				const {
 					longitude,
 					latitude,
@@ -219,21 +220,23 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 					speed = null,
 				} = coords;
 
-				paths.get(this).push({coords: {
-					latitude,
-					longitude,
-					altitude,
-					heading,
-					accuracy,
-					altitudeAccuracy,
-					speed,
-				}, timestamp: new Date(timestamp).toISOString()});
+				paths.get(this).push({
+					coords: {
+						latitude,
+						longitude,
+						altitude,
+						heading,
+						accuracy,
+						altitudeAccuracy,
+						speed,
+					}, timestamp: new Date(timestamp).toISOString()
+				});
 				const locMarker = marker.cloneNode(true);
 				locMarker.longitude = longitude;
 				locMarker.latitude = latitude;
 				await map.clearMarkers();
 				map.append(locMarker);
-				map.center = {latitude, longitude};
+				map.center = { latitude, longitude };
 				map.zoom = 18;
 
 				this.latitude = latitude;
@@ -244,10 +247,10 @@ customElements.define('current-location', class HTMLCurrentLocationElement exten
 				this.accuracy = accuracy;
 
 			}, console.error, {
-				enableHighAccuracy: true,
-				timeout: Infinity,
-				maximumAge: 3000,
-			});
+					enableHighAccuracy: true,
+					timeout: Infinity,
+					maximumAge: 3000,
+				});
 
 			pids.set(this, pid);
 		}
